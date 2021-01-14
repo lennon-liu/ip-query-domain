@@ -19,23 +19,26 @@
 ---
 文件读取：
 format：
-`180.101.159.?:5000`
-`180.101.159.?:5000`
-`180.101.159.?:5000`
-`180.101.159.?:5000`
-`180.101.159.?:5000`
-
+```
+`180.101.159.?:5000\n`
+`180.101.159.?:5000\n`
+`180.101.159.?:5000\n`
+`180.101.159.?:5000\n`
+`180.101.159.?:5000\n`
+```
 ---
 #### how to make
 
+```
 git clone https://github.com/lennon-liu/ip-query-domain.git
 `cd ip-query-domain`
 `cd cmd`
 `go build -i cmd.go`
+````
 
 ---
 #### help
-
+```
 `Usage of /tmp/___go_build_cmd_go:`
   `-i signal`
     	`send signal to a master process: stop, quit, reopen, reload`
@@ -51,7 +54,7 @@ git clone https://github.com/lennon-liu/ip-query-domain.git
     	`proxytool key fmt: proxytool (default "proxytool")`
   `-t int`
 `​    	request timeout (default 2)`
-
+```
 #### blog
 
 ​	https://lennon.work/
