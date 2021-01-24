@@ -69,3 +69,4 @@ func (c *Config) GetProxyFfile(proxyfile string) error {
 	}
 	return nil
 }
+

@@ -1,57 +1,64 @@
-# ip-query-domain
+# DnsSearch
 
 ---
-简单的爬虫 https://site.ip138.com/ 获取 ip 对应 dns解析记录
-
+####功能描述
+>根据IP获取DNS解析记录
 ---
-速度
-
-默认100go程，本机跑会很快封ip，需配置代理 否则设置go程数小于10
-
+####注意事项
+>默认10个go程，默认不设置代理，本机跑太快会很快封ip，设置go程数小于10！！！
 ---
-
-代理
+####代理设置
 ---
-#### redis读取
-
-代理池：https://github.com/jhao104/proxy_pool.git
-
----
-文件读取：
-format：
-```
-180.101.159.?:5000\n
-180.101.159.?:5000\n
-180.101.159.?:5000\n
-180.101.159.?:5000\n
-180.101.159.?:5000\n
+##### redis读取
+>代理池：https://github.com/lennon-liu/proxy_pool.git
+``` 
+-pf 127.0.0.1：6379 -pk proxypool
 ```
 ---
-#### how to make
+#####文件读取：
+```
+-pf proxypools.txt
+```
+#####文件内容format：
+```
+180.101.159.?:5000
+180.101.159.?:5000
+```
+---
+####编译
 ```
 git clone https://github.com/lennon-liu/ip-query-domain.git
-cd ip-query-domain
-cd cmd
-go build -i cmd.go
+cd dns_search/cd 
+go build -i dbs_search cmd.go
 ```
 ---
-#### Usage
+####参数
 ```
-  -i signal
-    	send signal to a master process: stop, quit, reopen, reload
+  -i string
+        input file path or os.stdin
   -n int
-    	proxy Tolerant (default 5)
-  -o signal
-    	send signal to a master process: stop, quit, reopen, reload
+        proxy Tolerant (default 5)//ip对应域名历史记录数
+  -o string
+        output file path or os.stdout
   -pa string
-    	proxytool IpAdddress fmt: 127.0.0.1:6379 (default "127.0.0.1:6379")
+        proxytool IpAdddress fmt: 127.0.0.1:6379
   -pf string
-    	proxytool file path
+        proxytool file path
   -pk string
-    	proxytool key fmt: proxytool (default "proxytool")
+        proxytool key fmt: proxytool
+  -s int
+        request Scanners (default 10) 扫描go程数
   -t int
-​    	request timeout (default 2)
+        request timeout (default 2) 请求延迟
 ```
-#### blog
+####快速使用
+```
+./dbs_search -i input.txt
+./dbs_search -i input.txt -o output.txt
+./dbs_search -i input.txt -o output.txt -n 1 -s 10 -t 2
+./dbs_search -i input.txt -pf 127.0.0.1：6379 -pk proxypool
+./dbs_search -i input.txt -pf proxypools.txt
+```
 
-​	https://lennon.work/
+####博客
+>https://lennon.work/

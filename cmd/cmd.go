@@ -1,9 +1,8 @@
 package main
 
 import "os"
-import _ "github.com/work/dns_search"
 import (
-	"github.com/work/dns_search"
+	"dns_search"
 )
 
 func main() {

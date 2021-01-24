@@ -12,6 +12,7 @@ type Config struct {
 	ProxyAddr string
 	ProxyKey  string
 	Proxys    []Proxy
+	UseProxy bool
 }
 
 type Target struct {
@@ -33,7 +34,7 @@ var config Config
 func init() {
 	config.Timeout = 5
 	config.Maxip = 256
-	config.Scanners = 100
+	config.Scanners = 10
 	config.Tolerant = 5
 	config.ProxyAddr = "127.0.0.1:6379"
 	config.Proxys = make([]Proxy, 0, 300)

@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io"
 	"math/rand"
-	"os"
 	"strings"
 	"sync"
 	"time"
@@ -20,9 +19,6 @@ func Process() {
 	outchan := make(chan *Result, config.Maxip*2)
 	wp3.Add(1)
 	wp2.Add(config.Scanners)
-	if len(config.Proxys) < 1 {
-		os.Exit(1)
-	}
 	for i := 0; i < config.Scanners; i++ {
 
 		go func(i int) {
@@ -60,14 +56,16 @@ func Process() {
 		} else if err != nil {
 			break
 		}
-		line_ := strings.Replace(string(line), "\n", "", -1)
+		line_ := strings.Replace(string(line), "\r\n", "", -1)
 		target := TargetPrase(line_)
 		if target == nil {
 			continue
 		}
-		index := rand.Intn(len(config.Proxys) - 1)
-		if &(config.Proxys[index]) != nil {
-			target.ProxyURL = "http://" + config.Proxys[index].Url
+		if config.UseProxy{
+			index := rand.Intn(len(config.Proxys) - 1)
+			if &(config.Proxys[index]) != nil {
+				target.ProxyURL = "http://" + config.Proxys[index].Url
+			}
 		}
 		if target != nil {
 			inchan <- target

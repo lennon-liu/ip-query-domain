@@ -9,12 +9,13 @@ import (
 func ParseCommandLine(flags []string) error {
 	fmt.Println(len(flags))
 	var Input, Output, ProxyFile string
-	flag.StringVar(&Input, "i", "", "send `signal` to a master process: stop, quit, reopen, reload")
-	flag.StringVar(&Output, "o", "", "send `signal` to a master process: stop, quit, reopen, reload")
+	flag.StringVar(&Input, "i", "", "input file path or os.stdin")
+	flag.StringVar(&Output, "o", "", "output file path or os.stdout")
 	flag.IntVar(&config.Tolerant, "n", 5, "proxy Tolerant")
 	flag.IntVar(&config.Timeout, "t", 2, "request timeout")
-	flag.StringVar(&config.ProxyAddr, "pa", "127.0.0.1:6379", "proxytool IpAdddress fmt: 127.0.0.1:6379")
-	flag.StringVar(&config.ProxyKey, "pk", "proxytool", "proxytool key fmt: proxytool")
+	flag.IntVar(&config.Scanners, "s", 10, "request Scanners")
+	flag.StringVar(&config.ProxyAddr, "pa", "", "proxytool IpAdddress fmt: 127.0.0.1:6379")
+	flag.StringVar(&config.ProxyKey, "pk", "", "proxytool key fmt: proxytool")
 	flag.StringVar(&ProxyFile, "pf", "", "proxytool file path ")
 	flag.Parse()
 	if Input != "" {
@@ -43,11 +44,21 @@ func ParseCommandLine(flags []string) error {
 			fmt.Println(err)
 			os.Exit(-1)
 		}
+		if len(config.Proxys) < 1 {
+			panic("do not find any proxy！")
+		}
+		config.UseProxy=true
 	} else if config.ProxyAddr != "" && config.ProxyKey != "" {
 		if err := config.GetProxyFredis(); err != nil {
 			fmt.Println(err)
 			os.Exit(-1)
 		}
+		if len(config.Proxys) < 1 {
+			panic("do not find any proxy！")
+		}
+		config.UseProxy=true
+	}else{
+		config.UseProxy=false
 	}
 	return nil
 }

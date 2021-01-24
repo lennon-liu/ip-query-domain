@@ -13,12 +13,18 @@ import (
 func Httprequest(target *Target) (result *Result) {
 	result = new(Result)
 	result.Ip = target.Ip
-	proxy, err := u.Parse(target.ProxyURL)
+	transport:=&http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	if target.ProxyURL!=""{
+		if proxy,err := u.Parse(target.ProxyURL);err!=nil{
+			panic(err)
+		}else{
+			transport.Proxy=http.ProxyURL(proxy)
+		}
+	}
 	client := &http.Client{
-		Transport: &http.Transport{
-			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-			Proxy:           http.ProxyURL(proxy),
-		},
+		Transport: transport,
 		Timeout: time.Duration(time.Duration(config.Timeout) * time.Second),
 	}
 	url := fmt.Sprintf("https://site.ip138.com/%s/", target.Ip)
