@@ -11,7 +11,7 @@
 ---
 #### 代理设置
 ##### redis读取
->代理池：https://github.com/lennon-liu/proxy_pool.git
+>[代理池搭建](https://github.com/lennon-liu/proxy_pool.git)
 ``` 
 -pf 127.0.0.1：6379 -pk proxypool
 ```
@@ -62,7 +62,7 @@ go build -i dbs_search cmd.go
 ./dbs_search -i input.txt
 ./dbs_search -i input.txt -o output.txt
 ./dbs_search -i input.txt -o output.txt -n 1 -s 10 -t 2
-./dbs_search -i input.txt -pf 127.0.0.1：6379 -pk proxypool
+./dbs_search -i input.txt -pf 127.0.0.1:6379 -pk proxypool
 ./dbs_search -i input.txt -pf proxypools.txt
 ```
 
