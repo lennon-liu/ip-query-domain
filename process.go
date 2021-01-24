@@ -61,7 +61,7 @@ func Process() {
 		if target == nil {
 			continue
 		}
-		if config.UseProxy{
+		if config.UseProxy {
 			index := rand.Intn(len(config.Proxys) - 1)
 			if &(config.Proxys[index]) != nil {
 				target.ProxyURL = "http://" + config.Proxys[index].Url

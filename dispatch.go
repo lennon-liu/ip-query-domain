@@ -47,7 +47,7 @@ func ParseCommandLine(flags []string) error {
 		if len(config.Proxys) < 1 {
 			panic("do not find any proxy！")
 		}
-		config.UseProxy=true
+		config.UseProxy = true
 	} else if config.ProxyAddr != "" && config.ProxyKey != "" {
 		if err := config.GetProxyFredis(); err != nil {
 			fmt.Println(err)
@@ -56,9 +56,9 @@ func ParseCommandLine(flags []string) error {
 		if len(config.Proxys) < 1 {
 			panic("do not find any proxy！")
 		}
-		config.UseProxy=true
-	}else{
-		config.UseProxy=false
+		config.UseProxy = true
+	} else {
+		config.UseProxy = false
 	}
 	return nil
 }

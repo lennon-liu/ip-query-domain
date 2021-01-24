@@ -12,7 +12,7 @@ type Config struct {
 	ProxyAddr string
 	ProxyKey  string
 	Proxys    []Proxy
-	UseProxy bool
+	UseProxy  bool
 }
 
 type Target struct {
