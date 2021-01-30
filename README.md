@@ -32,7 +32,7 @@
 
 ```
 git clone https://github.com/lennon-liu/ip-query-domain.git
-cd dns_search/cd 
+cd dns_search/cmd
 go build -i dbs_search cmd.go
 ```
 ---
